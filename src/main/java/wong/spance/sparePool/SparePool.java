@@ -22,10 +22,10 @@ import java.util.concurrent.locks.ReentrantLock;
  * 池提供了一致简单的资源释放方法，记住free就够了！<br/>
  * 用户可以不必关闭Statement和ResultSet，在获得Connection的线程内调用free()即可释放所有相关资源。<br/>
  * 池不负责连接超时和泄露管理，池在关闭时将释放所有资源-Connection,Statement,ResultSet.<br/>
- * 一系列任务完成并其它线程不再资源时可以关闭池SecondSimplePool.shutdown()
+ * 一系列任务完成并其它线程不再资源时可以关闭池SparePool.shutdown()
  *
  * @author Spance Wong
- * @version 0.4
+ * @version 0.1
  * @since 2013/10/1
  */
 public class SparePool {
@@ -82,9 +82,9 @@ public class SparePool {
             for (int i = 0; i < INSTANCE.initSize; i++) {
                 SparePool.getInstance().createConnection();
             }
-            log.info("SecondSimplePool 初始化 size={}", INSTANCE.initSize);
+            log.info("SparePool 初始化 size={}", INSTANCE.initSize);
         } catch (Exception e) {
-            log.error("SecondSimplePool 初始化错误", e);
+            log.error("SparePool 初始化错误", e);
         }
     }
 
@@ -93,7 +93,7 @@ public class SparePool {
      */
     public static synchronized void shutdown() {
         INSTANCE.isReady = false;
-        log.info("开始销毁 SecondSimplePool{}", INSTANCE.statistics());
+        log.info("开始销毁 SparePool{}", INSTANCE.statistics());
         while (!INSTANCE.freePool.isEmpty()) {
             Connection _conn = INSTANCE.freePool.poll();
             INSTANCE.release(_conn);
