@@ -6,7 +6,7 @@
 
     <groupId>wong.spance</groupId>
     <artifactId>sparePool</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.2</version>
 
     <dependencies>
         <dependency>
